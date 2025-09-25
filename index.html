@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Edvance</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #234174;
+      --accent: #5c7ae6;
+      --logo-dark: #191919;
+      --bg-hero: linear-gradient(90deg, #5c7ae6 0%, #234174 100%);
+      --bg-light: #f8fafd;
+      --bg-white: #fff;
+      --border: #e3eaf7;
+      --radius: 16px;
+      --text-dark: #22223b;
+      --text-mid: #48506a;
+      --text-light: #9ca3af;
+      --shadow: 0 4px 24px 0 rgba(92,122,230,0.08);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Inter', Arial, sans-serif;
+      color: var(--text-dark);
+      background: var(--bg-white);
+      font-size: 1.07rem;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+    header {
+      background: var(--bg-white);
+      border-bottom: 1.5px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .container {
+      width: 95%;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 180px; /* Even more space for bigger logo */
+    }
+    .logo-title-group {
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+    }
+    .site-logo {
+      height: 160px; /* Much bigger for high visibility */
+      max-width: 350px;
+      width: auto;
+      display: block;
+      filter: drop-shadow(0 2px 10px rgba(0,0,0,0.09));
+    }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--primary);
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 4px 0;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s, border-bottom 0.15s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--accent);
+      border-bottom: 2px solid var(--accent);
+    }
+    .hero {
+      background: var(--bg-hero);
+      color: #fff;
+      text-align: left;
+      padding: 70px 0 60px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-content {
+      max-width: 650px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: 0 0 18px 0;
+      line-height: 1.18;
+      letter-spacing: 0.3px;
+    }
+    .hero p {
+      font-size: 1.21rem;
+      color: #ecf0fa;
+      margin-bottom: 2.2em;
+      margin-top: 0;
+      max-width: 520px;
+      line-height: 1.7;
+    }
+    .hero .cta-btn {
+      display: inline-block;
+      background: #fff;
+      color: var(--primary);
+      font-size: 1.09rem;
+      font-weight: 700;
+      padding: 0.85em 2.2em;
+      border: none;
+      border-radius: 999px;
+      box-shadow: 0 3px 16px 0 rgba(92,122,230,0.13);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: background 0.18s, color 0.16s, transform 0.11s;
+      margin-top: 0.4em;
+      margin-bottom: 0.5em;
+      cursor: pointer;
+    }
+    .hero .cta-btn:hover {
+      background: var(--accent);
+      color: #fff;
+      transform: translateY(-2px) scale(1.03);
+    }
+    .hero-img {
+      position: absolute;
+      right: 6%;
+      bottom: 0;
+      max-width: 320px;
+      width: 39vw;
+      z-index: 0;
+      opacity: 0.15;
+      display: none;
+    }
+    .section-about {
+      background: var(--bg-white);
+      padding: 72px 0 60px 0;
+    }
+    .about-inner {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+    .about-photo {
+      flex: 0 0 180px;
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 50%;
+      aspect-ratio: 1 / 1;
+      box-shadow: var(--shadow);
+      border: 2.5px solid var(--primary);
+      background: #fff;
+      display: block;
+    }
+    .about-text {
+      flex: 1 1 280px;
+      min-width: 0;
+    }
+    .about-text h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--logo-dark);
+      margin: 0 0 0.55em 0;
+    }
+    .about-text p {
+      color: var(--text-mid);
+      margin-top: 0.7em;
+      margin-bottom: 0.7em;
+      font-size: 1.09rem;
+    }
+    .about-links {
+      margin-top: 1.1em;
+      display: flex;
+      gap: 1em;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .linkedin-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55em;
+      background: linear-gradient(90deg, #0077b5, #5c7ae6 90%);
+      color: #fff;
+      padding: 0.44em 1.3em 0.44em 1em;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 1.04rem;
+      border: none;
+      letter-spacing: 0.04em;
+      box-shadow: 0 2px 16px 0 rgba(0,119,181,0.11);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.18s, box-shadow 0.14s, transform 0.12s, color 0.12s;
+      position: relative;
+      overflow: hidden;
+    }
+    .linkedin-btn:before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: -45%;
+      left: -30%;
+      width: 60%;
+      height: 190%;
+      background: rgba(255,255,255,0.09);
+      transform: rotate(22deg);
+      pointer-events: none;
+    }
+    .linkedin-btn:hover,
+    .linkedin-btn:focus {
+      background: linear-gradient(90deg, #005983, #5c7ae6 90%);
+      color: #fff;
+      box-shadow: 0 4px 26px 0 rgba(0,119,181,0.17);
+      transform: translateY(-2px) scale(1.03);
+    }
+    .linkedin-icon {
+      width: 1.19em;
+      height: 1.19em;
+      vertical-align: middle;
+      fill: #fff;
+      flex-shrink: 0;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.04));
+      margin-right: 2px;
+    }
+    .founder-contact {
+      margin-top: 0.8em;
+      font-size: 1em;
+      color: var(--text-mid);
+    }
+    .section-services {
+      background: var(--bg-light);
+      padding: 74px 0 60px 0;
+    }
+    .services-title {
+      text-align: center;
+      font-size: 2rem;
+      color: var(--logo-dark);
+      margin-bottom: 2.2em;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .services-list {
+      display: flex;
+      gap: 2.3rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+    .service-card {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2em 1.5em 1.6em 1.5em;
+      max-width: 330px;
+      min-width: 220px;
+      flex: 1 1 240px;
+      border: 1.5px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      transition: box-shadow 0.16s, border 0.14s, transform 0.13s;
+    }
+    .service-card:hover {
+      box-shadow: 0 5px 24px 0 rgba(92,122,230,0.13);
+      border: 1.5px solid var(--accent);
+      transform: translateY(-3px) scale(1.01);
+    }
+    .service-title {
+      color: var(--primary);
+      font-size: 1.13rem;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+      margin-top: 0;
+      margin-bottom: 0.6em;
+      min-height: 0;
+    }
+    .service-desc {
+      color: var(--text-mid);
+      font-size: 1.03rem;
+      margin-bottom: 0;
+      margin-top: 0;
+      flex: 1;
+    }
+    .section-contact {
+      background: var(--bg-white);
+      padding: 80px 0 54px 0;
+    }
+    .contact-title {
+      text-align: center;
+      font-size: 2rem;
+      color: var(--logo-dark);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.7em;
+    }
+    .contact-inner {
+      max-width: 420px;
+      margin: 0 auto;
+      background: #f6f9ff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2.4em 1.5em 1.7em 1.5em;
+      border: 1.5px solid var(--border);
+    }
+    .contact-form label {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.24em;
+      display: block;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      font-family: inherit;
+      font-size: 1rem;
+      border-radius: 7px;
+      border: 1.5px solid var(--border);
+      padding: 0.6em;
+      background: #fff;
+      color: var(--text-dark);
+      transition: border 0.13s, background 0.13s;
+      resize: vertical;
+      box-shadow: 0 1px 4px 0 rgba(92,122,230,0.04);
+      width: 100%;
+      margin-bottom: 1.1em;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      border-color: var(--accent);
+      background: #f1f5fb;
+      outline: none;
+    }
+    .contact-form button {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 0.7em 1.4em;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 0.4em;
+      transition: background 0.13s, color 0.13s, filter 0.13s, box-shadow 0.13s;
+      box-shadow: 0 2px 12px 0 rgba(92,122,230,0.09);
+      filter: brightness(1);
+      letter-spacing: 0.03em;
+    }
+    .contact-form button:hover,
+    .contact-form button:focus {
+      background: var(--accent);
+      color: #fff;
+      filter: brightness(1.08);
+      box-shadow: 0 3px 18px 0 rgba(92,122,230,0.17);
+    }
+    .alt-contact {
+      text-align: center;
+      font-size: 1rem;
+      margin-top: 1.7em;
+      color: var(--text-mid);
+    }
+    @media (max-width: 1100px) {
+      .about-inner { flex-direction: column; gap: 2em; align-items: flex-start; }
+      .about-photo { margin-bottom: 1em; }
+    }
+    @media (max-width: 700px) {
+      .container { width: 99%; }
+      nav { flex-direction: column; gap: 0.7em;}
+      .hero-content { padding-left: 8px; padding-right: 8px; }
+      .about-inner, .about-text { padding: 0 !important; }
+      .about-photo {
+        width: 120px;
+        height: 120px;
+        min-width: 120px;
+        min-height: 120px;
+        max-width: 120px;
+        max-height: 120px;
+        border-radius: 50%;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        display: block;
+      }
+      .site-logo {
+        height: 120px !important; /* very large even on small screens */
+        max-width: 95vw !important;
+      }
+      .services-list { flex-direction: column; gap: 1.1em; }
+      .hero h1 { font-size: 1.45rem; }
+      .about-text h2, .services-title, .contact-title { font-size: 1.25rem; }
+      .footer-logo { height: 46px !important; }
+      .about-links { gap: 0.3em; }
+    }
+    footer {
+      background: var(--bg-white);
+      color: var(--text-light);
+      text-align: center;
+      font-size: 0.97rem;
+      padding: 1.5em 0 0.9em 0;
+      border-top: 1.5px solid var(--border);
+      margin-top: 2em;
+    }
+    .footer-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.6em;
+    }
+    .footer-logo {
+      height: 60px;
+      width: auto;
+      display: block;
+      margin: 0 auto 0.4em auto;
+      opacity: 0.92;
+      filter: drop-shadow(0 2px 10px rgba(0,0,0,0.09));
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="container">
+      <span class="logo-title-group">
+        <img src="logo.png" alt="Edvance Logo" class="site-logo" />
+      </span>
+      <ul class="nav-links">
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <!-- HERO -->
+    <section id="home" class="hero">
+      <div class="container hero-content">
+        <h1>Empowering Educators with AI & Technology</h1>
+        <p>
+          At Edvance, we empower educators to bring technology and artificial intelligence into the classroom with purpose and sustainability. Our practical, real-world solutions help teachers and schools unlock the full potential of educational technology.
+        </p>
+        <a class="cta-btn" href="#contact">Book a Free Consultation</a>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section-about">
+      <div class="about-inner">
+        <img src="founder.jpg" alt="Founder of Edvance" class="about-photo" />
+        <div class="about-text">
+          <h2>About Edvance</h2>
+          <p>
+            Edvance was founded by Lina Mirghani, an educator passionate about educational technology, artificial intelligence, and the future of learning. Lina graduated with a Master’s in Education and Technology from University College London (UCL) Institute of Education and has worked across the education sector in a variety of roles. Her experiences have shaped Edvance’s mission: to make technology and AI accessible in every classroom, while keeping educators at the heart of innovation.
+          </p>
+          <p>
+            We believe that technology should always serve pedagogy. Our team combines years of expertise in education, technology, and artificial intelligence to deliver practical and sustainable solutions for both schools and teachers. We support educators as they adapt to new tools and approaches in a rapidly evolving digital world.
+          </p>
+          <div class="about-links">
+            <a class="linkedin-btn" href="https://www.linkedin.com/in/linammirghani" target="_blank" rel="noopener">
+              <svg class="linkedin-icon" viewBox="0 0 24 24">
+                <path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11.75 20.25h-3v-10.5h3v10.5zm-1.5-12.08c-.97 0-1.75-.8-1.75-1.75s.78-1.75 1.75-1.75 1.75.8 1.75 1.75-.78 1.75-1.75 1.75zm15.25 12.08h-3v-5.5c0-1.33-1.08-2.41-2.41-2.41s-2.41 1.08-2.41 2.41v5.5h-3v-10.5h3v1.45c.61-.88 1.6-1.45 2.66-1.45 1.99 0 3.59 1.61 3.59 3.59v6.91z"/>
+              </svg>
+              LinkedIn: Founder
+            </a>
+            <a class="linkedin-btn" href="https://www.linkedin.com/company/edvanceducation" target="_blank" rel="noopener">
+              <svg class="linkedin-icon" viewBox="0 0 24 24">
+                <path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11.75 20.25h-3v-10.5h3v10.5zm-1.5-12.08c-.97 0-1.75-.8-1.75-1.75s.78-1.75 1.75-1.75 1.75.8 1.75 1.75-.78 1.75-1.75 1.75zm15.25 12.08h-3v-5.5c0-1.33-1.08-2.41-2.41-2.41s-2.41 1.08-2.41 2.41v5.5h-3v-10.5h3v1.45c.61-.88 1.6-1.45 2.66-1.45 1.99 0 3.59 1.61 3.59 3.59v6.91z"/>
+              </svg>
+              LinkedIn: Edvance
+            </a>
+          </div>
+          <div class="founder-contact">
+            <strong>Contact Email:</strong> <a href="mailto:contact@edvanceducation.com" style="color:var(--accent);text-decoration:underline;">contact@edvanceducation.com</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="section-services">
+      <div class="container">
+        <h2 class="services-title">Our Services</h2>
+        <ul class="services-list">
+          <li class="service-card">
+            <h3 class="service-title">Consultancy</h3>
+            <p class="service-desc">
+              Personalised consultancy for schools and educators to develop effective strategies for integrating educational technology, tailored to your unique needs and goals.
+            </p>
+          </li>
+          <li class="service-card">
+            <h3 class="service-title">Workshops</h3>
+            <p class="service-desc">
+              Hands-on, interactive workshops introducing practical AI and technology tools. We help build confidence and competence with EdTech for teachers and staff.
+            </p>
+          </li>
+          <li class="service-card">
+            <h3 class="service-title">Expert Guidance</h3>
+            <p class="service-desc">
+              Ongoing support and mentoring to help educators confidently integrate technology with pedagogy, ensuring a lasting and positive impact on teaching and learning.
+            </p>
+          </li>
+          <li class="service-card">
+            <h3 class="service-title">Custom Training Modules</h3>
+            <p class="service-desc">
+              Tailored training packages focused on specific tools such as Google Classroom, Microsoft Teams, ChatGPT for education, and AI assessment tools. Designed to build confidence and practical skills for everyday teaching.
+            </p>
+          </li>
+          <li class="service-card">
+            <h3 class="service-title">Parent &amp; Student Engagement Sessions</h3>
+            <p class="service-desc">
+              Interactive sessions for parents and students to explore AI and digital tools, promoting understanding and alignment across the school community.
+            </p>
+          </li>
+          <li class="service-card">
+            <h3 class="service-title">Curriculum &amp; Resource Design</h3>
+            <p class="service-desc">
+              Support in creating digital and AI-enhanced curriculum materials, lesson plans, and resources that meet national or international education standards.
+            </p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section-contact">
+      <div class="container">
+        <h2 class="contact-title">Contact</h2>
+        <div class="contact-inner">
+          <form class="contact-form" action="https://formspree.io/f/xldpdrqw" method="POST">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" required />
+
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required />
+
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+
+            <button type="submit">Send</button>
+          </form>
+          <p class="alt-contact">
+            Or reach out directly at <a href="mailto:contact@edvanceducation.com" style="color:var(--accent);text-decoration:underline;">contact@edvanceducation.com</a>.
+          </p>
+          <div style="text-align:center; margin-top:1.2em;">
+            <a class="linkedin-btn" href="https://www.linkedin.com/company/edvanceducation" target="_blank" rel="noopener">
+              <svg class="linkedin-icon" viewBox="0 0 24 24">
+                <path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11.75 20.25h-3v-10.5h3v10.5zm-1.5-12.08c-.97 0-1.75-.8-1.75-1.75s.78-1.75 1.75-1.75 1.75.8 1.75 1.75-.78 1.75-1.75 1.75zm15.25 12.08h-3v-5.5c0-1.33-1.08-2.41-2.41-2.41s-2.41 1.08-2.41 2.41v5.5h-3v-10.5h3v1.45c.61-.88 1.6-1.45 2.66-1.45 1.99 0 3.59 1.61 3.59 3.59v6.91z"/>
+              </svg>
+              LinkedIn: Edvance
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <img src="logo.png" alt="Edvance Logo" class="footer-logo" />
+        <span>&copy; 2025 Edvance.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
